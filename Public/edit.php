@@ -16,7 +16,6 @@ if($_GET["type"] == "Submenu") {
   $select = "<div><select name='selectMenu' id='selectMenu' class='form-select my-2'>";
   foreach($rows as $row){
     $selected = ($row["id"] == $obj->getIdMenu()) ? "selected='true'" : "";
-    echo $selected."<br>"; 
     $select .= "<option value='".$row["id"]."'".$selected.">".$row["name"]."</option>";
   }
   $select .= "</select></div>";
@@ -30,7 +29,7 @@ $id = $obj->getId();
 echo <<<MAIN
 <main class="container-fluid">
   <div class="container py-2">
-    <h2 class="text-info text-center">Menu Form</h2>
+    <h2 class="text-info text-center">Edit Form</h2>
     <form action="./update.php" method="post" class="shadow-sm p-2" name="formEdit">
       <div>
         <input type="text" id="name" name="name" placeholder="Enter the name" value="$name" class="form-control my-2" >
