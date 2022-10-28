@@ -1,0 +1,25 @@
+.navbar-brand::before{
+  content:"";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background-color: white;
+  transition: all .3s ease 0s;
+}
+.navbar-brand:hover::before{
+  width: 100%;
+  height: 1px;
+}
+
+.table{
+  min-width: 700px;
+}
+
+.navbar-toggler:focus{
+  box-shadow: 0 0 0 1px;
+}
+
+textarea{
+  resize: none !important;
+}
