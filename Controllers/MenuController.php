@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
-require_once("/9TESTS/1.S2Next/Controllers/Controller.php");
-require_once("/9TESTS/1.S2Next/Models/Menu.php");
+require_once(__DIR__."/../Controllers/Controller.php");
+require_once(__DIR__."/../Models/Menu.php");
 use Models\Menu;
 
 

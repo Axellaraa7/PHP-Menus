@@ -1,6 +1,6 @@
 <?php 
 require_once("./Templates/header.php"); 
-require_once("/9TESTS/1.S2Next/Controllers/MenuController.php");
+require_once(__DIR__."/../Controllers/MenuController.php");
 use Controllers\MenuController;
 
 $types = array("Menu","Submenu");
@@ -14,8 +14,8 @@ if($_GET["type"] == "Submenu") {
   }
   $select .= "</select></div>";
 }
-?>
-
+$select = $select ?? "";
+echo <<<MAIN
 <main class="container-fluid">
   <div class="container py-2">
     <h2 class="text-info text-center">Create new register</h2>
@@ -26,12 +26,13 @@ if($_GET["type"] == "Submenu") {
       <div>
         <textarea id="description" name="description" placeholder="Enter the description" class="form-control my-2"></textarea>
       </div>
-      <?php echo $select ?? "" ?>
+      $select
       <div class="d-flex justify-content-end">
         <button class="btn btn-success">Submit</button>
       </div>
     </form>
   </div>
 </main>
+MAIN;
 
-<?php require_once("./Templates/footer.php"); ?>
+require_once("./Templates/footer.php");

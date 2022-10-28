@@ -1,6 +1,6 @@
 <?php
 namespace Controllers;
-require_once("/9TESTS/1.S2Next/Models/Submenu.php");
+require_once(__DIR__."/../Models/Submenu.php");
 use Models\Submenu;
 
 class SubmenuController extends MenuController{

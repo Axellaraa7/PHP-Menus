@@ -1,22 +1,22 @@
 <?php
-require_once(__DIR__ . "/Templates/header.php");
-require_once "./autoload.php";
-// require_once("/9TESTS/1.S2Next/Controllers/MenuController.php");
-// require_once("/9TESTS/1.S2Next/Controllers/SubmenuController.php");
+require_once(__DIR__."/Templates/header.php");
+require_once(__DIR__."/../Controllers/MenuController.php");
+require_once(__DIR__."/../Controllers/SubmenuController.php");
 
-use Controllers\MenuController;
-use Controllers\SubmenuController;
+function fn_getRow($data){
+  global $menu,$submenu;
+  if($data == "all") return array_merge($menu->read(), $submenu->read());
+  if($data == "menus") return $menu->read();
+  if($data == "submenus") return $submenu->read();
+  return array();
+}
 
-$menu = new MenuController();
-$submenu = new SubmenuController();
+$menu = new \Controllers\MenuController();
+$submenu = new \Controllers\SubmenuController();
 
 if (isset($_POST["option"])) {
   $_GET = array();
-  $col = "";
-  if ($_POST["option"] == "all") { $rows = array_merge($menu->read(),  $submenu->read()); $col = "<td></td>"; }
-  else if ($_POST["option"] == "menus") $rows = $menu->read();
-  else if ($_POST["option"] == "submenus") $rows = $submenu->read(); 
-  else $rows = array();
+  $rows = fn_getRow($_POST["option"]);
 }
 ?>
 
@@ -41,34 +41,40 @@ if (isset($_POST["option"])) {
         </div>
       </div>
     </form>
-    <?php if(isset($rows)){ ?>
-    <div class="table-responsive">
+    <?php if(isset($rows)){ 
+      echo <<<TAB
+      <div class="table-responsive">
       <table class="table table-striped my-2 align-middle" style="min-width: 700px;">
         <thead class="table-dark text-center">
           <th>#</th>
           <th>Name</th>
           <th>Description</th>
-          <?php if($_POST["option"] != "menus") echo "<th>Menu Padre</th>"; ?>
-          <th>Options</th>
+      TAB;
+      if($_POST["option"] != "menus") echo "<th>Menu Padre</th>";
+      echo <<<TAB1
+        <th>Options</th>
         </thead>
         <tbody class="text-center">
-        <?php
-        foreach($rows as $index=>$row){
-          $idMenus = (isset($row["id_menus"])) ? "<td>".$row["id_menus"]."</td>" : $col;
-          $type = (isset($row["id_menus"])) ? "Submenu" : "Menu";
-          echo "<tr><td>".($index+1)."</td>
-          <td>".$row["name"]."</td>
-          <td>".$row["description"]."</td>".$idMenus."
-          <td><a href='./edit.php?type=".$type."&id=".$row["id"]."' class='btn btn-warning'>
-          EDIT &#128393;</a>
-          <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#modal' data-bs-whatever='type=".$type."&id=".$row["id"]."'>
-          DELETE &#128465;</button></td></tr>";
-        }
-        ?>
-        </tbody>
-      </table>
-    </div>
-    <?php } ?>
+      TAB1;
+      foreach($rows as $index=>$row){
+        $idMenus = (isset($row["id_menus"])) 
+        ? "<td>".$row["id_menus"]."</td>" : (($_POST["option"] == "all") ? "<td></td>" : "");
+        $type = (isset($row["id_menus"])) ? "Submenu" : "Menu";
+        $id = $row["id"];
+        $name = $row["name"];
+        $description = $row["description"];
+        $i = $index+1;
+          echo <<<TAB2
+          <tr><td>$i</td>
+          <td>$name</td>
+          <td>$description</td>$idMenus
+          <td><a href='./edit.php?type=$type&id=$id' class='btn btn-warning'>EDIT &#128393;</a>
+          <button class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#modal' data-bs-whatever='type=$type&id=$id'>
+          DELETE &#128465;</button></td></tr>
+          TAB2;
+      }
+      echo "</tbody></table></div>";
+    } ?>
   </div>
 </main>
 

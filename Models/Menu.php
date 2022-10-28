@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-require_once("/9TESTS/1.S2Next/Models/Model.php");
+require_once(__DIR__."/../Models/Model.php");
 use Models\Model;
 
 class Menu extends Model{

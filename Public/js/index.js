@@ -5,6 +5,7 @@ d.addEventListener("DOMContentLoaded",()=>{
   });
   switch(location.pathname.split("/").pop()){
     case "index.php":
+    case "":
       putWhateverModal(d.getElementById("modal"));
       break;
   }

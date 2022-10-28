@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-require_once("/9TESTS/1.S2Next/Models/DB/DBConnection.php");
+require_once(__DIR__."/../Models/DB/DBConnection.php");
 use \Models\DB\DBConnection;
 
 abstract class Model{

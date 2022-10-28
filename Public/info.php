@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/Templates/header.php");
-require_once("/9TESTS/1.S2Next/Controllers/MenuController.php");
-require_once("/9TESTS/1.S2Next/Controllers/SubmenuController.php");
+require_once(__DIR__."/../Controllers/MenuController.php");
+require_once(__DIR__."/../Controllers/SubmenuController.php");
 // echo realpath(__DIR__);
 $objMenu = new \Controllers\MenuController();
 $objSubMenu = new \Controllers\SubmenuController();

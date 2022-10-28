@@ -1,7 +1,7 @@
 <?php 
 require_once("./Templates/header.php"); 
-require_once("/9TESTS/1.S2Next/Controllers/MenuController.php");
-require_once("/9TESTS/1.S2Next/Controllers/SubmenuController.php");
+require_once(__DIR__."/../Controllers/MenuController.php");
+require_once(__DIR__."/../Controllers/SubmenuController.php");
 
 $types = array("Menu","Submenu");
 if(!isset($_GET["type"]) || !in_array($_GET["type"],$types)) header("Location: ./index.php");
@@ -22,25 +22,30 @@ if($_GET["type"] == "Submenu") {
   $select .= "</select></div>";
 }
 
-?>
+$select = $select ?? "";
+$name = $obj->getName();
+$description = $obj->getDescription();
+$id = $obj->getId();
 
+echo <<<MAIN
 <main class="container-fluid">
   <div class="container py-2">
     <h2 class="text-info text-center">Menu Form</h2>
     <form action="./update.php" method="post" class="shadow-sm p-2" name="formEdit">
       <div>
-        <input type="text" id="name" name="name" placeholder="Enter the name" value="<?php echo $obj->getName(); ?>"class="form-control my-2" >
+        <input type="text" id="name" name="name" placeholder="Enter the name" value="$name" class="form-control my-2" >
       </div>
       <div>
-        <textarea id="description" name="description" placeholder="Enter the description" class="form-control my-2"><?php echo $obj->getDescription(); ?></textarea>
+        <textarea id="description" name="description" placeholder="Enter the description" class="form-control my-2">$description</textarea>
       </div>
-      <?php echo $select ?? "" ?>
-      <input type="hidden" name="id" value="<?php echo $obj->getId() ?>">
+      $select
+      <input type="hidden" name="id" value="$id">
       <div class="d-flex justify-content-end">
         <button class="btn btn-success">Submit</button>
       </div>
     </form>
   </div>
 </main>
+MAIN;
 
-<?php require_once("./Templates/footer.php"); ?>
+require_once("./Templates/footer.php");

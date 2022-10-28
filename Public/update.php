@@ -1,6 +1,6 @@
 <?php
-require_once("/9TESTS/1.S2Next/Controllers/MenuController.php");
-require_once("/9TESTS/1.S2Next/Controllers/SubmenuController.php");
+require_once(__DIR__."/../Controllers/MenuController.php");
+require_once(__DIR__."/../Controllers/SubmenuController.php");
 $controller = "\Controllers\\";
 $controller .= (isset($_POST["selectMenu"])) ? "SubmenuController" : "MenuController";
 foreach($_POST as $value){
